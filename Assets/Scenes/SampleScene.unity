@@ -879,6 +879,7 @@ GameObject:
   - component: {fileID: 475485449}
   - component: {fileID: 475485448}
   - component: {fileID: 475485451}
+  - component: {fileID: 475485452}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -988,6 +989,21 @@ MonoBehaviour:
     m_Bits: 8
   groundCheckRadius: 0.2
   extraJumps: 1
+--- !u!114 &475485452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 475485447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98f6b0dabfc9e5e4c942c8dfc69d1fa5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minYToKill: -20
+  reloadDelay: 0
+  hazardTag: Hazard
 --- !u!1001 &557041923
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1487,7 +1503,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1068997191}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2029,6 +2045,28 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.082125, y: 0.5}
   m_EdgeRadius: 0
+--- !u!1 &1837976407 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5276572531331361670, guid: aaeaa85f99768524e8d970b719a67c6d, type: 3}
+  m_PrefabInstance: {fileID: 8551479459921470098}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1837976412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1837976407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adef1ab145d692a45ab48fb945f16434, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTag: Player
+  pickupSfx: {fileID: 0}
+  sfxVolume: 0.8
+  pickupVfx: {fileID: 0}
+  destroyDelay: 0
 --- !u!1001 &1997590331
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2306,7 +2344,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5276572531331361670, guid: aaeaa85f99768524e8d970b719a67c6d, type: 3}
       propertyPath: m_Name
-      value: Capsule
+      value: Coin
       objectReference: {fileID: 0}
     - target: {fileID: 5764906675311941427, guid: aaeaa85f99768524e8d970b719a67c6d, type: 3}
       propertyPath: m_LocalScale.x
@@ -2359,7 +2397,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5276572531331361670, guid: aaeaa85f99768524e8d970b719a67c6d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1837976412}
   m_SourcePrefab: {fileID: 100100000, guid: aaeaa85f99768524e8d970b719a67c6d, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
