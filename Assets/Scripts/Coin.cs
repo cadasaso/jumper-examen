@@ -1,35 +1,45 @@
 using UnityEngine;
 
+[DisallowMultipleComponent]
 [RequireComponent(typeof(Collider2D))]
 public class Coin : MonoBehaviour
 {
+    [Header("Quién puede recoger")]
+    [Tooltip("Tag del objeto que puede recoger la moneda")]
+    public string playerTag = "Player";
+
     [Header("Feedback (opcionales)")]
-    [SerializeField] private AudioClip pickupSfx;
-    [SerializeField, Range(0f,1f)] private float sfxVolume = 0.8f;
-    [SerializeField] private GameObject pickupVfx; // Partículas opcionales
+    [Tooltip("Sonido al recoger")]
+    public AudioClip pickupSfx;
+    [Range(0f, 1f)]
+    public float sfxVolume = 0.8f;
+    [Tooltip("VFX/partículas al recoger")]
+    public GameObject pickupVfx;
+    [Tooltip("Retraso antes de destruir (para dejar sonar el SFX/VFX)")]
+    public float destroyDelay = 0f;
 
     void Reset()
     {
-        // Asegura Trigger
+        // Asegura que el collider sea Trigger
         var col = GetComponent<Collider2D>();
         col.isTrigger = true;
+        name = "Coin";
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!other.CompareTag("Player")) return;
+        if (!other.CompareTag(playerTag)) return;
 
-        // 1) Puntaje (si tienes GameManager)
-        GameManager.I?.AddScore(1);
+        // SFX
+        if (pickupSfx != null)
+            AudioSource.PlayClipAtPoint(pickupSfx, transform.position, sfxVolume);
 
-        // 2) Feedback visual/sonoro (opcionales)
-        if (pickupSfx) AudioSource.PlayClipAtPoint(pickupSfx, transform.position, sfxVolume);
-        if (pickupVfx) Instantiate(pickupVfx, transform.position, Quaternion.identity);
+        // VFX
+        if (pickupVfx != null)
+            Instantiate(pickupVfx, transform.position, Quaternion.identity);
 
-        // 3) Flash en el personaje (si usas el script PickupFlash que te pasé)
-        other.GetComponentInChildren<PickupFlash>()?.Flash();
-
-        // 4) Destruir la moneda
-        Destroy(gameObject);
+        // Destruir moneda
+        if (destroyDelay <= 0f) Destroy(gameObject);
+        else Destroy(gameObject, destroyDelay);
     }
 }
